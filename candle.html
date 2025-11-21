@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AKARI | 手作蠟燭</title>
+    <!-- 引入日系字體 Noto Serif JP -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;500;700&family=Noto+Sans+TC:wght@300;400&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- CSS Reset & Variables --- */
+        :root {
+            --bg-color: #f9f8f6;       /* 米白/紙張色 */
+            --text-color: #4a4a4a;     /* 墨灰 */
+            --accent-color: #8e8071;   /* 亞麻棕 */
+            --border-color: #e0deda;
+            --spacing-lg: 80px;
+            --spacing-md: 40px;
+            --spacing-sm: 20px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Serif JP', 'Noto Sans TC', serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            font-weight: 300;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--text-color);
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--accent-color);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* --- Utility Classes --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-sm);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: var(--spacing-lg);
+            letter-spacing: 0.2em;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 1px;
+            background-color: var(--accent-color);
+        }
+
+        /* --- Header / Nav --- */
+        header {
+            padding: 30px 0;
+            position: sticky;
+            top: 0;
+            background-color: rgba(249, 248, 246, 0.95);
+            z-index: 100;
+            border-bottom: 1px solid transparent;
+            transition: border 0.3s;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            background-image: url('https://images.unsplash.com/photo-1602523636913-15dd3a74b6eb?q=80&w=1920&auto=format&fit=crop'); /* 替換為你的蠟燭大圖 */
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.1); /* 輕微遮罩增加文字可讀性 */
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            color: #fff;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            letter-spacing: 0.3em;
+            font-weight: 300;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            letter-spacing: 0.2em;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 40px;
+            background-color: transparent;
+            border: 1px solid #fff;
+            color: #fff;
+            font-size: 0.9rem;
+            letter-spacing: 0.15em;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #fff;
+            color: var(--text-color);
+        }
+
+        /* --- Philosophy Section (Vertical Text) --- */
+        .philosophy {
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .philosophy-text {
+            display: inline-block;
+            text-align: left;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .jp-vertical {
+            /* 這是日系網頁常見的直書裝飾 */
+            writing-mode: vertical-rl;
+            text-orientation: upright;
+            letter-spacing: 0.3em;
+            height: 200px;
+            margin: 0 auto 30px;
+            color: var(--accent-color);
+            font-size: 1.2rem;
+        }
+
+        /* --- Products Grid --- */
+        .products {
+            padding: var(--spacing-lg) 0;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 40px;
+        }
+
+        .product-card {
+            background: #fff;
+            padding: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.03);
+        }
+
+        .product-image {
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            background-color: #efefef;
+            margin-bottom: 15px;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            text-align: center;
+        }
+
+        .product-name {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .product-price {
+            color: var(--accent-color);
+            font-size: 0.95rem;
+            letter-spacing: 0.05em;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background-color: #fff;
+            padding: 60px 0 30px;
+            margin-top: 60px;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .copyright {
+            font-size: 0.8rem;
+            color: #999;
+            letter-spacing: 0.1em;
+        }
+
+        /* --- RWD Media Queries --- */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .nav-links {
+                display: none; /* 簡化範例：手機版隱藏選單，實際專案需加JS控制開關 */
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .product-grid {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+                gap: 20px;
+            }
+
+            .product-card {
+                padding: 10px;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 導航欄 -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="mobile-menu-btn">☰</div>
+                <a href="#" class="logo">AKARI · 燈火</a>
+                <ul class="nav-links">
+                    <li><a href="#home">首頁</a></li>
+                    <li><a href="#philosophy">品牌理念</a></li>
+                    <li><a href="#products">系列商品</a></li>
+                    <li><a href="#contact">聯絡我們</a></li>
+                </ul>
+                <div class="cart-icon">
+                    <a href="#">購物車 (0)</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 主視覺 (Hero Section) -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>光と影の詩</h1>
+            <p>在靜謐中，點亮心中的溫暖。</p>
+            <a href="#products" class="btn">進入商店</a>
+        </div>
+    </section>
+
+    <!-- 品牌理念 (Philosophy) -->
+    <section id="philosophy" class="philosophy">
+        <div class="container">
+            <div class="jp-vertical">
+                自然の香り<br>手作りの温度
+            </div>
+            <div class="philosophy-text">
+                <p style="margin-bottom: 20px;">
+                    每一顆蠟燭，都是一次與自然的對話。<br>
+                    我們堅持使用純天然大豆蠟與植物精油，<br>
+                    去除繁複的包裝，只留下最純粹的光影與香氣。
+                </p>
+                <p>
+                    在忙碌的日常隙縫中，<br>
+                    為自己點燃一盞燈火，找回內心的平靜。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 商品列表 (Products) -->
+    <section id="products" class="products">
+        <div class="container">
+            <h2 class="section-title">精選系列</h2>
+            
+            <div class="product-grid">
+                <!-- 商品 1 -->
+                <div class="product-card">
+                    <a href="#">
+                        <div class="product-image">
+                            <!-- 使用 placeholder 圖片 -->
+                            <img src="https://images.unsplash.com/photo-1603006905003-be475563bc59?q=80&w=600&auto=format&fit=crop" alt="晨露蠟燭">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">晨露 | Morning Dew</h3>
+                            <p class="product-price">NT$ 680</p>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- 商品 2 -->
+                <div class="product-card">
+                    <a href="#">
+                        <div class="product-image">
+                            <img src="Store/pic/蠟燭2.png" alt="時記得蠟燭">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">古木 | Ancient Wood</h3>
+                            <p class="product-price">NT$ 750</p>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- 商品 3 -->
+                <div class="product-card">
+                    <a href="#">
+                        <div class="product-image">
+                            <img src="Store/pic/蠟燭3.png" alt="時記得蠟燭">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">白茶 | White Tea</h3>
+                            <p class="product-price">NT$ 680</p>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- 商品 4 -->
+                <div class="product-card">
+                    <a href="#">
+                        <div class="product-image">
+                            <img src="Store/pic/蠟燭4.png" alt="時記得蠟燭">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">靜寂 | Silence</h3>
+                            <p class="product-price">NT$ 520</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 頁尾 (Footer) -->
+    <footer>
+        <div class="container">
+            <ul class="footer-links">
+                <li><a href="#">關於我們</a></li>
+                <li><a href="#">運送政策</a></li>
+                <li><a href="#">Instagram</a></li>
+                <li><a href="#">Line</a></li>
+            </ul>
+            <p class="copyright">&copy; 2023 AKARI Candle Studio. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // 簡單的導航欄滾動效果 (選用)
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.borderBottom = '1px solid #e0deda';
+                header.style.backgroundColor = 'rgba(255, 255, 255, 0.98)';
+            } else {
+                header.style.borderBottom = '1px solid transparent';
+                header.style.backgroundColor = 'rgba(249, 248, 246, 0.95)';
+            }
+        });
+    </script>
+</body>
+</html>
